@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="icon" type="image/png" href="favicon.png" />
+
+        <title>Swift Parallax</title>
+
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        
+        <script src="js/syntaxhighlighter/scripts/shCore.js"></script>
+        <script src="js/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+        <link rel="stylesheet" href="js/syntaxhighlighter/styles/shCore.css">
+        <link rel="stylesheet" href="js/syntaxhighlighter/styles/shThemeDefault.css">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script src="js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="css/swift.css">
+        <script src="js/swift.js"></script>
+
+        <link rel="stylesheet" href="css/style.css"/>
+
+        <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            // smooth links #href
+            $('a[href*=#]').each(function() {
+
+                var length = 2500;
+
+                if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname && this.hash.replace(/#/,'') ) {
+
+                 var $targetId = $(this.hash), $targetAnchor = $('[name=' + this.hash.slice(1) +']');
+                 var $target = $targetId.length ? $targetId : $targetAnchor.length ? $targetAnchor : false;
+
+                 if ($target) {
+
+                    var targetOffset = $target.offset().top;
+
+                    if ($(this).attr('length') !== undefined)
+                        length = parseInt($(this).attr('length'));
+
+                    $(this).click(function() {
+
+                        $("html, body").bind("scroll mousedown DOMMouseScroll mousewheel keyup", function() {
+
+                            $('html, body').stop();
+                        });
+
+                        $('html, body').animate({ scrollTop: targetOffset }, length, function() {
+
+                            $("html, body").unbind("scroll mousedown DOMMouseScroll mousewheel keyup");
+                        });
+
+                        return false;
+                    });
+                }
+            }
+        });
+
+        SyntaxHighlighter.all();
+
+    });
+
+    </script>
+
+    </head>
+
+    <body data-spy="scroll" data-target="#navigation" id="home">
+        <div id="navigation" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#home" id="scrolled">Swift Parallax</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#home">Home</a></li>
+                        <li><a href="#slide_3" title="Installation">Installation</a></li>
+                        <li><a href="#slide_4" title="Docs">Docs</a></li>
+                        <li><a href="#slide_5" title="Demos">Demos</a></li>
+                        <li><a href="#end" length="8000" title="End">End</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="jumbotron no-padding">
+
+            <div id="slide_header">
+                <div class="center">
+                    <h1>Swift Parallax</h1>
+                    <p>Swift is the new revolutionary Parallax framework.</p>
+                    <p>Simple to use and to configure, it can move everything for you.</p>
+
+                    <hr style="height: 100px;" />
+
+                    <ul class="inline">
+                        <li id="header_move_1">Backgrounds</li>
+                        <li id="header_move_2">|</li>
+                        <li id="header_move_3">Texts</li>
+                        <li id="header_move_4">|</li>
+                        <li id="header_move_5">Images</li>
+                        <li id="header_move_6">|</li>
+                        <li id="header_move_7">Cats</li>
+                        <li id="header_move_8">|</li>
+                        <li id="header_move_9">...</li>
+                    </ul>
+
+                    <div id="header_thumb" class="big-icon glyphicon glyphicon-thumbs-up"></div>
+
+                    <p class="bottom"><a href="#slide_2"><span class="big-icon glyphicon glyphicon-arrow-down" style="font-size:60px;"></span></a></p>
+                </div>
+            </div>
+
+            <div class="content">
+
+                <div id="slide_2" class="row">
+                    <div class="col-md-4">
+                        <h2 class="features_titles">Based on jQuery</h2>
+                        <span class="features_1"><img src="img/jquery.png" /></span>
+                        <ul>
+                            <li class="features_2">Lightweight Footprint</li>
+                            <li class="features_3">Cross-Browser</li>
+                            <li class="features_4">CSS3 Compliant</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h2 class="features_titles">Easy to Use</h2>
+                        <ol>
+                            <li class="features_1">Write your HTML</li>
+                            <li class="features_2">Add the <em>Swift</em> transitions</li>
+                            <li class="features_3">Go drink a coffee</li>
+                        </ol>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h2 class="features_titles">Powerful</h2>
+                        <ul>
+                            <li class="features_1">Vertical & horizontal transitions</li>
+                            <li class="features_2">Control start, length & speed of transition</li>
+                            <li class="features_3">Initial position</li>
+                            <li class="features_4">Backgrounds & DOM elements</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="slide_3" class="row">
+                    <h1>Installation</h1>
+                    <div class="col-md-12">
+                        <p>Using Swift Parallax is pretty simple. You can download the <a href="http://plugins.jquery.com/swift/">jQuery Plugin</a> from <a href="https://github.com/timotheemoulin/jQuery-swift/">Github</a>. and put them in your own directories. Then add the following lines in your HTML.</p>
+
+                        <pre class="brush: js">
+                            <!-- Iclude jQuery (latest version) -->
+                            <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+                            <!-- Include Swift Parallax files -->
+                            <link rel="stylesheet" href="css/swift.css">
+                            <script src="js/swift.js"></script>
+
+                            <!-- Configure Swift Parallax to interract with your DOM elements -->
+                            <script type="text/javascript">
+                                $('#slide_footer').swift({'type': 'bg', 'positionStart': '-500', 'length': '200'});
+                            </script>
+                        </pre>
+                    </div>
+                </div>
+
+                <div id="slide_4" class="row">
+                    <h1>Docs</h1>
+                    <div class="col-md-12">
+
+                        <p>To add a transition on any DOM element, add the following classes and properties.</p>
+                        <h2>Classes</h2>
+                        <ul>
+                            <li><em>swift</em> : basic class (must be present on every element</li>
+                            <li><em>dom</em> : means that you want to move the entire element (and all it's children)</li>
+                            <li><em>bg</em> : means that you want to move it's background only</li>
+                        </ul>
+                        <h2>Properties</h2>
+                        <ul>
+                            <li><em>type</em> : can be set to <b>dom</b> <em>(move the DOM element)</em> or <b>bg</b> <em>(move its background)</em></li>
+                            <li><em>selector</em> : defines jQuery selector. Can be either a <b>class</b> or an <b>id</b></li>
+                            <li><em>axis</em> : defines the axis on which the element will move. Can be se to <b>top</b> <em>(vertical)</em> or <b>left</b> <em>(horizontal)</em></li>
+                            <li><em>initial position</em> : defines the position of the element before the transition</li>
+                            <li><em>final position</em> : defines the position of the element at the end of the transition</li>
+                            <li><em>length</em> : defines the length of the transition</li>
+                            <li><em>delay</em> : defines the delay before begining the transition</li>
+                            <li><em>links</em> : can be set to <b>after</b>, <b>both</b>, or <b>before</b> to define if there is another transition for the same element <em>after</em>, <em>before and after</em>, or <em>before</em> this one</li>
+                        </ul>
+                        <pre class="brush: js">
+                            $('#slide_footer').swift({'type': 'bg', 'positionStart': '-500', 'length': '200'});
+                        </pre>
+                        <p>This example for a <em>background transition</em> will :</p>
+                        <ol>
+                            <li>Place the background of '#slide_footer' 500px over its normal position for a vertical transition</li>
+                            <li>Begin the transition automatically</li>
+                            <li>After scrolling 200 pixels down, the background will be at its final position</li>
+                        </ol>
+
+                    </div>
+                </div>
+
+                <div id="slide_5" class="row">
+                    <h1>Demos</h1>
+                    <div class="col-md-12">
+
+                        <p>Here are some concrete examples.</p>
+                        <h2>Timeline</h2>
+                        <p><a href="timeline.html">Live</a></p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="slide_footer" class="swift bg x y" swift-pos-y="-600" swift-delay-y="1300" swift-length-y="600" swift-pos-x="-800" swift-delay-x="1300" swift-length-x="600">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p><a href="http://timothee-moulin.me">&copy; 2014 timothee-moulin.me</a></p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p><a href="mailto:hello@timothee-moulin.me">hello@timothee-moulin.me</a></p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <span id="end"></span>
+    </body>
+    <script type="text/javascript">
+
+        // type, selector, axis, positionStart, positionEnd, length, delay, links
+        $('#header_move_1').swift({'type': 'dom', 'positionStart': 'top', 'length': '200'});
+        $('#header_move_2').swift({'type': 'dom', 'positionStart': 'top', 'length': '200', 'delay': '10'});
+        $('#header_move_3').swift({'type': 'dom', 'positionStart': 'top', 'length': '200', 'delay': '20'});
+        $('#header_move_4').swift({'type': 'dom', 'positionStart': 'top', 'length': '200', 'delay': '30'});
+        $('#header_move_5').swift({'type': 'dom', 'positionStart': 'top', 'length': '200', 'delay': '40'});
+        $('#header_move_6').swift({'type': 'dom', 'positionStart': 'top', 'length': '200', 'delay': '50'});
+        $('#header_move_7').swift({'type': 'dom', 'positionStart': 'top', 'length': '200', 'delay': '60'});
+        $('#header_move_8').swift({'type': 'dom', 'positionStart': 'top', 'length': '200', 'delay': '70'});
+        $('#header_move_9').swift({'type': 'dom', 'positionStart': 'top', 'length': '200', 'delay': '80'});
+
+        $('#header_thumb').swift({'type': 'dom', 'axis': 'left', 'positionStart': 'right', 'length': '200'});
+
+        $('.features_titles').swift({'type': 'dom', 'axis': 'left', 'positionStart': 'left', 'positionEnd': '50', 'length': '100', 'delay': '50', 'links': 'after'});
+        $('.features_titles').swift({'type': 'dom', 'axis': 'left', 'positionStart': '50', 'positionEnd': '-25', 'length': '50', 'delay': '150', 'links': 'both'});
+        $('.features_titles').swift({'type': 'dom', 'axis': 'left', 'positionStart': '-25', 'length': '50', 'delay': '200', 'links': 'before'});
+
+        $('.features_1').swift({'type': 'dom', 'axis': 'left', 'positionStart': 'right', 'length': '200', 'delay': '50'});
+        $('.features_2').swift({'type': 'dom', 'axis': 'left', 'positionStart': 'right', 'length': '200', 'delay': '75'});
+        $('.features_3').swift({'type': 'dom', 'axis': 'left', 'positionStart': 'right', 'length': '200', 'delay': '100'});
+        $('.features_4').swift({'type': 'dom', 'axis': 'left', 'positionStart': 'right', 'length': '200', 'delay': '125'});
+
+        $('#slide_header').swift({'type': 'bg', 'positionStart': '-200', 'length': '200'});
+
+        $('#slide_footer').swift({'type': 'bg', 'positionStart': '-500', 'length': '200'});
+    </script>
+</html>

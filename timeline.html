@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="icon" type="image/png" href="favicon.png" />
+
+        <title>Swift Parallax</title>
+
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script src="js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="css/swift.css">
+        <script src="js/swift.js"></script>
+
+        <link rel="stylesheet" href="css/style.css"/>
+
+        <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            // smooth links #href
+            $('a[href*=#]').each(function() {
+
+                var length = 2500;
+
+                if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname && this.hash.replace(/#/,'') ) {
+
+                 var $targetId = $(this.hash), $targetAnchor = $('[name=' + this.hash.slice(1) +']');
+                 var $target = $targetId.length ? $targetId : $targetAnchor.length ? $targetAnchor : false;
+
+                 if ($target) {
+
+                    var targetOffset = $target.offset().top;
+
+                    if ($(this).attr('length') !== undefined)
+                        length = parseInt($(this).attr('length'));
+
+                    $(this).click(function() {
+
+                        $("html, body").bind("scroll mousedown DOMMouseScroll mousewheel keyup", function() {
+
+                            $('html, body').stop();
+                        });
+
+                        $('html, body').animate({ scrollTop: targetOffset }, length, function() {
+
+                            $("html, body").unbind("scroll mousedown DOMMouseScroll mousewheel keyup");
+                        });
+
+                        return false;
+                    });
+                }
+            }
+        });
+
+    });
+
+    </script>
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-40142552-2', 'timothee-moulin.me');
+        ga('send', 'pageview');
+    </script>
+
+    </head>
+
+    <body data-spy="scroll" data-target="#navigation" id="home">
+        <div id="navigation" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://swift.timothee-moulin.me" id="scrolled">Swift Parallax</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="jumbotron no-padding">
+
+            <div id="slide_header">
+                <div class="center">
+                    <h1>Swift Parallax</h1>
+                    <p>Create a timeline with Swift Parallax is easy.</p>
+                    <p>First, create your HTML version of the timeline and then add some fancy effects.</p>
+
+                    <p class="align-bottom"><a href="#end"><span class="big-icon glyphicon glyphicon-arrow-down" style="font-size:60px;"></span></a></p>
+                </div>
+            </div>
+
+            <div class="content">
+
+                <div id="slide_2">
+
+                    <div class="row">
+                        <div class="col-md-12 center timeline">
+                            <h3>Slide down to discover my timeline.</h3>
+                        </div>
+                    </div>
+
+                    <div class="row timeline-title">
+                        <div class="col-md-12 center timeline">
+                            <h3>Jan. 2014 - Apr. 2014</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 timeline-left">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">North Island College</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p>Improving my <b>English Skills</b> with a total immersion in Canada.</p>
+                                    <ul>
+                                        <li>ESL 090: <em>Writing</em></li>
+                                        <li>ESL 089: <em>Reading</em></li>
+                                        <li>ESL 058: <em>Grammar</em></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row timeline-title">
+                        <div class="col-md-12 center timeline">
+                            <h3>Jul. 2012 - Dec. 2013</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-md-offset-7 timeline-right">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">iomedia communication</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p>I worked for this company for 1 and half year in parallel of my school.</p>
+                                    <p>Among others things, I was in charge of the development of <em>newspapers websites</em> (<a href="http://illustre.ch">http://illustre.ch</a> - <a href="http://hebdo.ch">http://hebdo.ch</a>) and an <em>exhibition management plateform</em>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row timeline-title">
+                        <div class="col-md-12 center timeline">
+                            <h3>Aug. 2011 - Jul. 2013</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 timeline-left">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Web School</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p>This 2 years formation leading to a <b>Professional Education and Training Degree in Software Development</b> gave me good knowledge about the <em>best practices</em> on web development.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row timeline-title">
+                        <div class="col-md-12 center timeline">
+                            <h3>Nov. 2010 - Aug. 2011</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-md-offset-7 timeline-right">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Swiss Armed Forces</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p>I was almost 1 year with the colors. I finished <b>sergeant</b>, group leader and basic training instructor.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row timeline-title">
+                        <div class="col-md-12 center timeline">
+                            <h3>Aug. 2006 - Jul. 2010</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 timeline-left">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">VAL-COM Technologie</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p>I obtained my <b>Federal Certificate of Capacity</b> after 4 years folowing a <em>General Computer Sciences</em> formation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row timeline-title">
+                        <div class="col-md-12 center timeline">
+                            <h3>Jul. 2006</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-md-offset-7 timeline-right">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">End of Mandatory School</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p>I ended my mandatory school by one year in the German speaking school <em>Orientierungsschule Brig-Glis</em>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="slide_footer">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p><a href="http://timothee-moulin.me">&copy; 2014 timothee-moulin.me</a></p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p><a href="mailto:hello@timothee-moulin.me">hello@timothee-moulin.me</a></p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <span id="end"></span>
+    </body>
+    <script type="text/javascript">
+
+        $('.timeline-title').swift({'type': 'dom', 'positionStart': 'bottom', 'length': '300'});
+        $('.timeline-right').swift({'type': 'dom', 'positionStart': 'right', 'length': '500', 'axis': 'left'});
+        $('.timeline-left').swift({'type': 'dom', 'positionStart': 'left', 'length': '500', 'axis': 'left'});
+
+        $('#slide_header').swift({'type': 'bg', 'positionStart': '-200', 'length': '200', 'links': 'after'});
+        $('#slide_header').swift({'type': 'bg', 'positionStart': '0', 'positionEnd': '-200', 'length': '200', 'links': 'both', 'delay': '200'});
+        $('#slide_header').swift({'type': 'bg', 'positionStart': '-200', 'length': '200', 'links': 'before', 'delay': '400'});
+
+        $('#slide_footer').swift({'type': 'bg', 'positionStart': '-500', 'length': '200'});
+    </script>
+</html>

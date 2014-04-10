@@ -1,7 +1,7 @@
 {
     "name": "swift",
     "title": "jQuery Swift Parallax",
-    "description": "jQuery plugin to make parallax animations.",
+    "description": "jQuery plugin to make parallax animations. Allows you to add easy transitions to your backgrounds or animate every DOM element.",
     "keywords": [
         "parallax",
         "animation"
