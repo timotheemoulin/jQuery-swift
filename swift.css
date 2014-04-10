@@ -1,0 +1,42 @@
+/**
+ * Swift Parallax
+ * @author: Timothee Moulin
+ * @website: swift.timothee-moulin.me
+ *
+ *
+ * Backgrounds can be fixed or scrolled (default)
+ *  background-attachment: fixed;
+ *  background-attachment: scroll;
+ *
+ * DOM elements must be relatives
+ *  position: relative;
+ *
+ * Examples and documentation are availables on swift.timothee-moulin.me
+ */
+
+body {
+  overflow-x: hidden;
+}
+
+.swift.bg {
+  background-attachment: scroll;
+}
+
+.swift.dom {
+  position: relative;
+}
+
+/* DEBUG */
+#debug {
+  height: 25px;
+  position: fixed;
+  z-index: 90000;
+  background: red;
+  border: 1px solid red;
+  width: 100%;
+}
+
+.sticky {
+	position: fixed;
+	bottom: -5000px;
+}
