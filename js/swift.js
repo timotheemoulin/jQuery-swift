@@ -26,47 +26,49 @@
      */
     $.fn.swift = function(options) {
 
-        return this.each(function() {
+        // disabled on mobiles
+        if (swiftAllowedOnMobile()) {
 
-            var settings = $.extend({
-                // These are the defaults.
-                positionEnd: "0",
-                delay: "auto",
-                axis: 'top',
-                links: undefined,
-            }, options );
+            return this.each(function() {
 
-            var calculatedDelay = swiftGetDelay($(this), settings.axis, settings.delay);
-            var calculatedLength = (parseFloat(calculatedDelay) + parseFloat(settings.length) > $(document).height()) ? $(document).height() - calculatedDelay : parseFloat(settings.length);
-            var positionStart = swiftGetInitialPosition($(this), settings.positionStart);
+                var settings = $.extend({
+                    // These are the defaults.
+                    positionEnd: "0",
+                    delay: "auto",
+                    axis: 'top',
+                    links: undefined,
+                }, options );
 
-            uniqueSelector = 'sid_' + swiftRand();
+                var calculatedDelay = swiftGetDelay($(this), settings.axis, settings.delay);
+                var calculatedLength = (parseFloat(calculatedDelay) + parseFloat(settings.length) > $(document).height()) ? $(document).height() - calculatedDelay : parseFloat(settings.length);
+                var positionStart = swiftGetInitialPosition($(this), settings.positionStart);
 
-            $(this).addClass(uniqueSelector);
+                uniqueSelector = 'sid_' + swiftRand();
 
-            var rule = {
-                'selector': '.' + uniqueSelector,
-                'axis': settings.axis,
-                'positionStart': parseFloat(positionStart),
-                'positionEnd': parseFloat(settings.positionEnd),
-                'speed': parseFloat(parseFloat(settings.positionEnd - positionStart) / calculatedLength),
-                'delay': parseFloat(calculatedDelay),
-                'end': parseFloat(calculatedDelay + calculatedLength),
-                'links': settings.links,
-            };
+                $(this).addClass(uniqueSelector);
 
-            console.log(rule.speed);
+                var rule = {
+                    'selector': '.' + uniqueSelector,
+                    'axis': settings.axis,
+                    'positionStart': parseFloat(positionStart),
+                    'positionEnd': parseFloat(settings.positionEnd),
+                    'speed': parseFloat(parseFloat(settings.positionEnd - positionStart) / calculatedLength),
+                    'delay': parseFloat(calculatedDelay),
+                    'end': parseFloat(calculatedDelay + calculatedLength),
+                    'links': settings.links,
+                };
 
-            if (settings.type == 'dom') 
-                swiftListDOM.push(rule);
+                if (settings.type == 'dom') 
+                    swiftListDOM.push(rule);
 
-            else if (settings.type == 'bg')
-                swiftListBg.push(rule);
+                else if (settings.type == 'bg')
+                    swiftListBg.push(rule);
 
-            $(this).addClass('swift ' + settings.type);
+                $(this).addClass('swift ' + settings.type);
 
-            swiftInit();
-        });
+                swiftInit();
+            });
+        }
 
     };
 
@@ -91,6 +93,11 @@
 
     function swiftRand() {
         return Math.random().toString(36).substr(2);
+    }
+
+    function swiftAllowedOnMobile() {
+
+        return ('ontouchstart' in document.documentElement) === false;
     }
 
 

@@ -139,3 +139,8 @@ a:hover {
   -ms-transform:rotate(-90deg); /* IE 9 */
   -webkit-transform:rotate(-90deg); /* Opera, Chrome, and Safari */
 }
+
+.currency {
+  height: 29px;
+  margin-top: -4px;
+}
