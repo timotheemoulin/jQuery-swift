@@ -1,5 +1,4 @@
-Copyright 2014 Swift - Timothee Moulin  
-http://swift.timothee-moulin.me/  
+Copyright 2014-2021 Swift - Timothee Moulin  
 http://timothee-moulin.me/
 
 ---
@@ -11,7 +10,6 @@ INSTALLATION
 ---
 1. Get the sources (JS / CSS)
 2. Add it to your HTML
-    + ```link rel="stylesheet" href="css/swift.css">```
     + ```<script src="js/swift.js"></script>```
 3. Add your effects
 	+ ```$('#header_move_1').swift({'type': 'dom', 'positionStart': 'top', 'length': '200'});```
@@ -30,4 +28,6 @@ PARAMETERS
 - positionEnd : {integer value} : position after the animation
 - length : {integer value} : length of the animation
 - delay : auto | {integer value} : delay before the animation starts
+  - '%' : 100vh
+  - '%%' : 200vh
 - links : undefined (default) | after | both | before : if you want to set more than one animation on the same element, you must add this parameter; says if there is another animation "after", "before", or "both before and after" this one
