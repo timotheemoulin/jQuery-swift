@@ -15,41 +15,54 @@
  * Examples and documentation are availables on swift.timothee-moulin.me
  */
 
-(function ( $ ) {
+(function ($) {
 
     // contain the list of all the elements we must move
-    swiftListDOM = new Array();
-    swiftListBg = new Array();
+    var swiftListDOM = [];
+    var swiftListBg = [];
 
     /**
      * Add a new Swift Rule
      */
-    $.fn.swift = function(options) {
+    $.fn.swift = function (options) {
 
         // disabled on mobiles
         if (swiftAllowedOnMobile()) {
 
-            return this.each(function() {
+            return this.each(function () {
 
-                var settings = $.extend({
+                let settings = $.extend({
                     // These are the defaults.
+                    type: "dom",
+                    duration: "%",
                     positionEnd: "0",
                     delay: "auto",
                     axis: 'top',
                     links: undefined,
-                }, options );
+                }, options);
 
-                var calculatedDelay = swiftGetDelay($(this), settings.axis, settings.delay);
-                var calculatedLength = (parseFloat(calculatedDelay) + parseFloat(settings.length) > $(document).height()) ? $(document).height() - calculatedDelay : parseFloat(settings.length);
-                var positionStart = swiftGetInitialPosition($(this), settings.positionStart);
+                if (undefined === settings.initial) {
+                    settings.initial = $(this).css(settings.axis);
+                }
 
-                uniqueSelector = 'sid_' + swiftRand();
+                let calculatedDelay = swiftGetDelay($(this), settings.axis, settings.delay);
+
+                if (settings.duration === '%') {
+                    // make it run during one screen height, but max during what's left of the screen
+                    settings.duration = Math.min(screen.availHeight, ($(document).height() - $(this).offset().top));
+                }
+
+                let calculatedLength = (parseFloat(calculatedDelay) + parseFloat(settings.duration) > $(document).height()) ? $(document).height() - calculatedDelay : parseFloat(settings.duration);
+                let positionStart = swiftGetInitialPosition($(this), settings.positionStart);
+
+                let uniqueSelector = 'sid_' + swiftRand();
 
                 $(this).addClass(uniqueSelector);
 
-                var rule = {
+                let rule = {
                     'selector': '.' + uniqueSelector,
                     'axis': settings.axis,
+                    'initial': settings.initial,
                     'positionStart': parseFloat(positionStart),
                     'positionEnd': parseFloat(settings.positionEnd),
                     'speed': parseFloat(parseFloat(settings.positionEnd - positionStart) / calculatedLength),
@@ -57,12 +70,12 @@
                     'end': parseFloat(calculatedDelay + calculatedLength),
                     'links': settings.links,
                 };
-
-                if (settings.type == 'dom') 
+                console.log(rule);
+                if (settings.type === 'dom') {
                     swiftListDOM.push(rule);
-
-                else if (settings.type == 'bg')
+                } else if (settings.type === 'bg') {
                     swiftListBg.push(rule);
+                }
 
                 $(this).addClass('swift ' + settings.type);
 
@@ -83,7 +96,7 @@
 
     function swiftScroll() {
 
-        $(window).scroll(function(e) {
+        $(window).scroll(function (e) {
 
             swiftDOM();
             swiftBackground();
@@ -97,46 +110,47 @@
 
     function swiftAllowedOnMobile() {
 
-        return ('ontouchstart' in document.documentElement) === false;
+        return !('ontouchstart' in document.documentElement);
     }
 
 
-    /** 
+    /**
      * Run Swift DOM Elements
      */
     function swiftDOM() {
 
         // For each DOM elements rule
-        $.each(swiftListDOM, function(key, rule) {
+        $.each(swiftListDOM, function (key, rule) {
 
-            if (swiftMustMove(rule))
-                $(rule.selector).css(rule.axis, swiftCalculatePosition(rule) + 'px');
+            if (swiftMustMove(rule)) {
+                $(rule.selector).css(rule.axis, swiftCalculatePosition(rule));
+            }
         });
-        
+
     }
 
 
-    /** 
+    /**
      * Run Swift Backgrounds
      */
     function swiftBackground() {
 
         // For each Background elements rule
-        $.each(swiftListBg, function(key, rule) {
+        $.each(swiftListBg, function (key, rule) {
 
             if (swiftMustMove(rule)) {
-                if (rule.axis == 'top')
-                    $(rule.selector).css('background-position', '0 ' + swiftCalculatePosition(rule) + 'px');
-
-                else if (rule.axis == 'left')
-                    $(rule.selector).css('background-position', swiftCalculatePosition(rule) + 'px 0');
+                if (rule.axis === 'top') {
+                    $(rule.selector).css('background-position-y', swiftCalculatePosition(rule));
+                } else if (rule.axis === 'left') {
+                    $(rule.selector).css('background-position-x', swiftCalculatePosition(rule));
+                }
             }
         });
-        
+
     }
 
 
-    /** 
+    /**
      * Defines if the element must move
      */
     function swiftMustMove(rule) {
@@ -145,14 +159,13 @@
         var current = swiftCurrentScroll();
         var deltaScrolled = current - rule.delay;
 
-        if (deltaScrolled > 0 && current < rule.end && current > rule.delay)
+        if (deltaScrolled > 0 && current < rule.end && current > rule.delay) {
             move = true;
-
-        else if (deltaScrolled <= 0 && (rule.links == 'after' || rule.links === undefined))
+        } else if (deltaScrolled <= 0 && (rule.links === 'after' || rule.links === undefined)) {
             move = true;
-
-        else if (current >= rule.end && (rule.links == 'before' || rule.links === undefined))
+        } else if (current >= rule.end && (rule.links === 'before' || rule.links === undefined)) {
             move = true;
+        }
 
         return move;
     }
@@ -163,20 +176,19 @@
      */
     function swiftCalculatePosition(rule) {
 
-        var position = 0;
-        var current = swiftCurrentScroll();
-        var deltaScrolled = current - rule.delay;
+        let position = 0;
+        let current = swiftCurrentScroll();
+        let deltaScrolled = current - rule.delay;
 
-        if (deltaScrolled > 0 && current < rule.end)
-            position = rule.speed * deltaScrolled + rule.positionStart;
+        if (deltaScrolled > 0 && current < rule.end) {
+            position = "calc(" + (rule.speed * deltaScrolled + rule.positionStart) + "px + " + rule.initial + ")";
+        } else if (deltaScrolled <= 0) {
+            position = "calc(" + (rule.positionStart) + "px + " + rule.initial + ")";
+        } else if (current >= rule.end) {
+            position = "calc(" + (rule.speed * (rule.end - rule.delay) + rule.positionStart) + "px + " + rule.initial + ")";
+        }
 
-        else if (deltaScrolled <= 0) 
-            position = rule.positionStart;
-
-        else if (current >= rule.end)
-            position = rule.speed * (rule.end - rule.delay) + rule.positionStart;
-
-        return parseFloat(position);
+        return position;
     }
 
 
@@ -194,31 +206,29 @@
      */
     function swiftGetInitialPosition(element, position) {
 
-        if (position === undefined)
+        if (position === undefined) {
             position = 0;
+        }
 
         if (isNaN(position)) {
 
-            if (position == 'bottom') {
+            if (position === 'bottom') {
 
                 var windowHeight = $(window).height();
                 var documentHeight = $(document).height();
 
-                if (element.offset().top + windowHeight > documentHeight)
+                if (element.offset().top + windowHeight > documentHeight) {
                     position = documentHeight - element.offset().top - element.height() - 10;
-
-                else
+                } else {
                     position = windowHeight;
-            }
-
-            else if (position == 'top')
+                }
+            } else if (position === 'top') {
                 position = 0 - element.offset().top - element.height();
-
-            else if (position == 'right')
+            } else if (position === 'right') {
                 position = $(document).width();
-
-            else if (position == 'left')
+            } else if (position === 'left') {
                 position = 0 - element.offset().left - element.width();
+            }
         }
 
         return parseFloat(position);
@@ -230,31 +240,48 @@
      */
     function swiftGetDelay(element, axis, delay) {
 
-        if (delay === undefined)
+        if (delay === undefined) {
             delay = 0;
+        }
 
         if (isNaN(delay)) {
 
-            if (delay == 'auto')
-                delay = element.position().top - $(window).height();
+            if (delay === 'auto') {
+                delay = element.offset().top - $(window).height();
+            }
         }
 
-        if (delay < 0)
+        if (delay < 0) {
             delay = 0;
+        }
 
         return parseFloat(delay);
     }
 
+    $(document).ready(function () {
+        $('.home-tool').swift({
+            'positionStart': 200,
+        });
+        $('body.home .entry-header h3').swift({
+            'positionStart': 200,
+            'axis': 'left',
+            'duration': 500,
+        });
+        $('body.home .entry-header h4').swift({
+            'positionStart': 200,
+            'duration': 500,
+        });
+        $('body.not-home .entry-header img').swift({
+            'positionStart': 50,
+            'positionEnd': -200,
+        });
+        $('#colophon').swift({
+            'type': 'bg',
+            'positionStart': -150,
+        });
+        $('#colophon .site-info').swift({
+            'positionStart': 100,
+        });
+    });
 
-    /**
-     * Display debug info
-     */
-    function swiftDebug()
-    {
-        if ($('#debug').length == 0)
-            $('body').prepend('<div id="debug"><span id="currentScroll"></span></div>');
-
-        $('#debug #currentScroll').html('scroll: ' + swiftCurrentScroll() + 'px');
-    }
-
-}( jQuery ));
+}(jQuery));
