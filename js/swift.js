@@ -50,10 +50,13 @@
                 if (settings.duration === '%') {
                     // make it run during one screen height, but max during what's left of the screen
                     settings.duration = Math.min(screen.availHeight, ($(document).height() - $(this).offset().top));
+                } else if (settings.duration === '%%') {
+                    settings.duration = Math.min(2 * screen.availHeight, ($(document).height() - $(this).offset().top));
                 }
 
                 let calculatedLength = (parseFloat(calculatedDelay) + parseFloat(settings.duration) > $(document).height()) ? $(document).height() - calculatedDelay : parseFloat(settings.duration);
                 let positionStart = swiftGetInitialPosition($(this), settings.positionStart);
+                settings.positionEnd = swiftGetInitialPosition($(this), settings.positionEnd);
 
                 let uniqueSelector = 'sid_' + swiftRand();
 
@@ -70,7 +73,7 @@
                     'end': parseFloat(calculatedDelay + calculatedLength),
                     'links': settings.links,
                 };
-                console.log(rule);
+                // console.log(rule);
                 if (settings.type === 'dom') {
                     swiftListDOM.push(rule);
                 } else if (settings.type === 'bg') {
@@ -142,7 +145,12 @@
                 if (rule.axis === 'top') {
                     $(rule.selector).css('background-position-y', swiftCalculatePosition(rule));
                 } else if (rule.axis === 'left') {
-                    $(rule.selector).css('background-position-x', swiftCalculatePosition(rule));
+                    let y = $(rule.selector).css('background-position-y');
+                    $(rule.selector).css('background-position', "left " + swiftCalculatePosition(rule) + " " + y);
+                } else if (rule.axis === 'right') {
+                    let y = $(rule.selector).css('background-position-y');
+                    $(rule.selector).css('background-position', "right " + swiftCalculatePosition(rule) + " top " + y);
+                    // console.log('background-position', "right " + swiftCalculatePosition(rule) + " top " + y);
                 }
             }
         });
@@ -211,7 +219,6 @@
         }
 
         if (isNaN(position)) {
-
             if (position === 'bottom') {
 
                 var windowHeight = $(window).height();
@@ -228,6 +235,10 @@
                 position = $(document).width();
             } else if (position === 'left') {
                 position = 0 - element.offset().left - element.width();
+            } else if (position.includes('vh')) {
+                position = $(document).height() * (position.substr(0, position.length - 2)) / 100;
+            } else if (position.includes('vw')) {
+                position = $(document).width() * (position.substr(0, position.length - 2)) / 100;
             }
         }
 
@@ -257,31 +268,5 @@
 
         return parseFloat(delay);
     }
-
-    $(document).ready(function () {
-        $('.home-tool').swift({
-            'positionStart': 200,
-        });
-        $('body.home .entry-header h3').swift({
-            'positionStart': 200,
-            'axis': 'left',
-            'duration': 500,
-        });
-        $('body.home .entry-header h4').swift({
-            'positionStart': 200,
-            'duration': 500,
-        });
-        $('body.not-home .entry-header img').swift({
-            'positionStart': 50,
-            'positionEnd': -200,
-        });
-        $('#colophon').swift({
-            'type': 'bg',
-            'positionStart': -150,
-        });
-        $('#colophon .site-info').swift({
-            'positionStart': 100,
-        });
-    });
 
 }(jQuery));
