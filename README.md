@@ -1,9 +1,10 @@
 Copyright 2014-2021 Swift - Timothee Moulin  
-http://timothee-moulin.me/
+https://timothee-moulin.me/
 
 ---
 Swift is a jQuery Plugin that allows you to easily add parallax effects on your backgrounds.  
 You can also add transitions on your DOM elements to make them appear from the side of the screen while the user scroll down.
+It even allows to interact with pseudo elements (:before, :after).
 
 ---
 INSTALLATION
