@@ -137,7 +137,7 @@
 
         $(window).scroll(function () {
             if (timeout === null) {
-                console.log('scroll', swiftCurrentScroll());
+                // console.log('scroll', swiftCurrentScroll());
                 swiftDOM();
                 swiftBackground();
 
